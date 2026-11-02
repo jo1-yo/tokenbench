@@ -1,0 +1,34 @@
+[project]
+name = "tokenbench"
+version = "0.1.0"
+description = "Benchmark, evaluate and route open-source LLMs on OpenAI-compatible serverless inference (Nebius Token Factory, vLLM, ...)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Jane Zhang" }]
+dependencies = [
+    "openai>=1.40",
+    "httpx>=0.27",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "pyyaml>=6.0",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+# Only needed for local/hf_inference_bench.py (runs a small model on your own machine)
+local = ["torch>=2.2", "transformers>=4.44", "accelerate>=0.30"]
+
+[project.scripts]
+tokenbench = "tokenbench.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["tokenbench*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

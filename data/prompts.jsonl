@@ -1,0 +1,16 @@
+{"prompt": "Explain the difference between a process and a thread to a new software engineer, with one concrete example."}
+{"prompt": "Write a Python function that returns the n-th Fibonacci number iteratively, and explain its time complexity."}
+{"prompt": "Summarize the main trade-offs between SQL and NoSQL databases in five bullet points."}
+{"prompt": "A customer says their order arrived damaged. Draft a short, polite support reply offering a replacement."}
+{"prompt": "What is gradient descent? Explain it without equations, using an analogy."}
+{"prompt": "Give me a three-day itinerary for a first visit to Kyoto, focused on temples and food."}
+{"prompt": "Translate into French and Japanese: 'The meeting has been moved to Thursday at 3pm.'"}
+{"prompt": "List the steps to deploy a containerized FastAPI app to Kubernetes, at a high level."}
+{"prompt": "Write a haiku about a GPU that never sleeps."}
+{"prompt": "What are three common causes of high latency in a web API, and how would you diagnose each?"}
+{"prompt": "Explain what a transformer's attention mechanism does in plain language."}
+{"prompt": "Write a SQL query that returns the top 5 customers by total order value from tables customers(id, name) and orders(id, customer_id, amount)."}
+{"prompt": "Compare renting versus buying a home in a short paragraph, without giving financial advice."}
+{"prompt": "Describe how a hash map works and what happens on a collision."}
+{"prompt": "Draft a product announcement tweet for an app that turns travel photos into a trip journal."}
+{"prompt": "What is the difference between precision and recall? Give an example where each matters more."}

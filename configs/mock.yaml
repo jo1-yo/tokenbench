@@ -1,0 +1,19 @@
+# Offline config: run `tokenbench mock` in another terminal first.
+# Prices are made up so the cost columns have something to show.
+provider:
+  base_url: http://127.0.0.1:8000/v1/
+  api_key_env: MOCK_API_KEY
+
+models:
+  - id: mock-small
+    label: mock-small
+    price_in: 0.02
+    price_out: 0.06
+  - id: mock-large
+    label: mock-large
+    price_in: 0.13
+    price_out: 0.40
+
+router:
+  small: mock-small
+  large: mock-large

@@ -1,0 +1,20 @@
+{"id": "m01", "input": "A bakery sells muffins for $3 each. Maya buys 7 muffins and pays with a $50 bill. How much change does she get, in dollars?", "answer": 29}
+{"id": "m02", "input": "A train travels at 80 km/h for 2.5 hours, then at 60 km/h for 1.5 hours. How many kilometers does it travel in total?", "answer": 290}
+{"id": "m03", "input": "A jacket costs $120. It is discounted by 25%, and then a further $10 coupon is applied. What is the final price in dollars?", "answer": 80}
+{"id": "m04", "input": "There are 4 shelves with 18 books each. Leo donates one third of all the books. How many books are left?", "answer": 48}
+{"id": "m05", "input": "A GPU processes 1,500 tokens per second. How many seconds does it need to process 270,000 tokens?", "answer": 180}
+{"id": "m06", "input": "Priya saves $45 every week. After how many weeks will she have saved at least $1,000?", "answer": 23}
+{"id": "m07", "input": "A rectangle has a perimeter of 54 cm and a length of 17 cm. What is its area in square centimeters?", "answer": 170}
+{"id": "m08", "input": "An API costs $0.20 per million input tokens and $0.60 per million output tokens. A job uses 5 million input tokens and 2 million output tokens. What is the total cost in dollars?", "answer": 2.2}
+{"id": "m09", "input": "A class has 30 students. 40% of them play soccer, and half of the soccer players also play chess. How many students play both soccer and chess?", "answer": 6}
+{"id": "m10", "input": "Tom is 3 times as old as his daughter. In 12 years he will be twice as old as her. How old is Tom now?", "answer": 36}
+{"id": "m11", "input": "A recipe needs 250 grams of flour for 10 cookies. How many grams of flour are needed for 36 cookies?", "answer": 900}
+{"id": "m12", "input": "A server handles 12 requests per second. How many requests does it handle in 2 hours and 15 minutes?", "answer": 97200}
+{"id": "m13", "input": "Ana reads 35 pages on Monday, twice as many on Tuesday, and 20 fewer than Tuesday on Wednesday. How many pages did she read over the three days?", "answer": 155}
+{"id": "m14", "input": "A water tank holds 1,200 liters. It is 35% full. How many more liters are needed to fill it completely?", "answer": 780}
+{"id": "m15", "input": "Three friends split a $100 dinner bill. One friend pays $10 more than each of the other two, who pay equal amounts. How much does the friend who pays more pay, in dollars?", "answer": 40}
+{"id": "m16", "input": "A shop sells pens in packs of 12 for $9. How much do 60 pens cost, in dollars?", "answer": 45}
+{"id": "m17", "input": "The temperature at 6am is -4 degrees. It rises 3 degrees every hour until noon. What is the temperature at noon?", "answer": 14}
+{"id": "m18", "input": "A model has 7 billion parameters stored in 16-bit precision (2 bytes each). How many gigabytes is that, using 1 GB = 1,000,000,000 bytes?", "answer": 14}
+{"id": "m19", "input": "If the same 7-billion-parameter model is quantized to 4 bits per parameter, how many gigabytes do the weights take, using 1 GB = 1,000,000,000 bytes?", "answer": 3.5}
+{"id": "m20", "input": "A runner completes 5 laps of a 400 m track in 9 minutes and 20 seconds. What is her average time per lap in seconds?", "answer": 112}

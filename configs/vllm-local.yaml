@@ -1,0 +1,10 @@
+# Self-hosted vLLM on a GPU machine, e.g.:
+#   vllm serve Qwen/Qwen2.5-7B-Instruct --port 8001 --enable-prefix-caching
+# Then compare it with the same commands as the serverless endpoint.
+provider:
+  base_url: http://127.0.0.1:8001/v1/
+  api_key_env: VLLM_API_KEY
+
+models:
+  - id: Qwen/Qwen2.5-7B-Instruct
+    label: qwen2.5-7b-vllm

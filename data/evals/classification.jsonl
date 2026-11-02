@@ -1,0 +1,15 @@
+{"id": "c01", "input": "I was charged twice for my subscription this month. Can you refund one of them?", "answer": "billing"}
+{"id": "c02", "input": "The app crashes every time I try to upload a photo larger than 10MB.", "answer": "bug_report"}
+{"id": "c03", "input": "It would be great if I could export my reports as CSV instead of only PDF.", "answer": "feature_request"}
+{"id": "c04", "input": "I can't log in — the password reset email never arrives.", "answer": "account_access"}
+{"id": "c05", "input": "My package was supposed to arrive Monday and tracking hasn't updated in five days.", "answer": "shipping"}
+{"id": "c06", "input": "Why did my invoice go up from $12 to $19 without any notice?", "answer": "billing"}
+{"id": "c07", "input": "Clicking 'Save' on the settings page does nothing; the changes are lost after refresh.", "answer": "bug_report"}
+{"id": "c08", "input": "Please add dark mode, my eyes hurt at night.", "answer": "feature_request"}
+{"id": "c09", "input": "My account got locked after I enabled two-factor authentication and lost my phone.", "answer": "account_access"}
+{"id": "c10", "input": "Can I change the delivery address for an order that has already been dispatched?", "answer": "shipping"}
+{"id": "c11", "input": "The search results show items from other users' private folders. That seems wrong.", "answer": "bug_report"}
+{"id": "c12", "input": "Do you offer a student discount on the annual plan? I'd like to switch from monthly.", "answer": "billing"}
+{"id": "c13", "input": "It would help a lot to have a Slack integration that posts a message when a job finishes.", "answer": "feature_request"}
+{"id": "c14", "input": "I changed my email address and now I don't know which one to use to sign in.", "answer": "account_access"}
+{"id": "c15", "input": "The courier left my parcel at the wrong building and now it's gone.", "answer": "shipping"}
