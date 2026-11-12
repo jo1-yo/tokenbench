@@ -41,6 +41,79 @@ make mock     # terminal 1: fake OpenAI-compatible server
 make demo     # terminal 2: full pipeline → runs/mock-demo/REPORT.md
 ```
 
+## Results: Nebius Token Factory, November 2026
+
+Three models on the shared serverless endpoint, `configs/nebius.yaml`:
+
+| model | architecture | price in / out ($ per 1M tokens) |
+|---|---|---|
+| `Qwen/Qwen3-30B-A3B-Instruct-2507` | MoE, 30B total / 3B active | 0.10 / 0.30 |
+| `Qwen/Qwen3-235B-A22B-Instruct-2507` | MoE, 235B total / 22B active | 0.20 / 0.60 |
+| `google/gemma-3-27b-it` | dense, 27B | 0.10 / 0.30 |
+
+Two full runs on 2026-11-12, about 15 minutes apart. Run 1 swept concurrency 1–16 and run 2
+swept 1–64. Each run cost a few cents. Full reports are in
+[`docs/results/REPORT-run1.md`](docs/results/REPORT-run1.md) and
+[`docs/results/REPORT-run2.md`](docs/results/REPORT-run2.md).
+
+![load test, run 2](docs/results/loadtest.png)
+
+**Load (run 2)**
+
+| model | c | TTFT p50 | TTFT p99 | TPOT p50 | aggregate tok/s | per-request tok/s | errors |
+|---|---|---|---|---|---|---|---|
+| qwen3-30b-a3b | 1 | 0.22 s | 0.28 s | 13.7 ms | 69 | 75 | 0/16 |
+| qwen3-30b-a3b | 32 | 0.23 s | 0.50 s | 15.2 ms | 1518 | 67 | 0/64 |
+| qwen3-30b-a3b | 64 | 0.29 s | 0.61 s | 14.9 ms | **3031** | 68 | 0/128 |
+| qwen3-235b-a22b | 1 | 0.30 s | 1.03 s | 15.1 ms | 57 | 71 | 0/16 |
+| qwen3-235b-a22b | 32 | 0.44 s | 2.46 s | 21.8 ms | 931 | 47 | 0/64 |
+| qwen3-235b-a22b | 64 | **3.37 s** | 6.47 s | 20.7 ms | 1262 | 50 | **4/128** (HTTP 529 "worker overloaded") |
+| gemma-3-27b | 1 | 0.19 s | 0.36 s | 11.9 ms | 74 | 81 | 0/16 |
+| gemma-3-27b | 32 | 0.31 s | 0.55 s | 17.1 ms | 1414 | 57 | 0/64 |
+| gemma-3-27b | 64 | 0.39 s | 1.07 s | 18.3 ms | 2363 | 51 | 1/128 (HTTP 502) |
+
+**Quality, cache and routing (both runs agree)**
+
+| | qwen3-30b-a3b | qwen3-235b-a22b | gemma-3-27b |
+|---|---|---|---|
+| eval accuracy (47 items) | 97.9% | 100% | 97.9% |
+| eval cost | $0.0013 | $0.0025 | $0.0013 |
+| prefix-cache TTFT speedup, run 1 / run 2 | 1.19× / 1.18× | 1.09× / 0.85× | 1.70× / 1.80× |
+| cached tokens reported (of ~2.4k) | 2368 | 2368 | 2408 |
+
+| routing policy | accuracy | cost | sent to large |
+|---|---|---|---|
+| always small (30B) | 97.9% | $0.0013 | 0% |
+| always large (235B) | 100% | $0.0025 | 100% |
+| routed | 97.9% | $0.0021 | 40% |
+
+### What I take from it
+
+1. **The small MoE is the default.** Qwen3-30B-A3B missed one item out of 47, a support-ticket
+   classification. It costs half as much as the 235B model and, with only 3B parameters active per
+   token, held flat per-request speed (around 68 tok/s) and sub-second p99 TTFT all the way to 64
+   concurrent requests. Aggregate throughput roughly doubled with every doubling of concurrency,
+   so I never reached its knee on this endpoint.
+2. **The 235B model hits its knee between 32 and 64 concurrent requests.** At 64, median TTFT
+   jumped from 0.44 s to 3.4 s and the endpoint started returning `529 worker overloaded`. A
+   workload with more than about 50 simultaneous users on this model should get dedicated
+   capacity rather than the shared endpoint.
+3. **Gemma degrades smoothly instead of hitting a wall.** Per-request speed fell from 81 to 51 tok/s
+   between 1 and 64 concurrent requests, with no queueing spike. That is the usual batching
+   curve: more requests share each decode step, so each one gets a smaller slice.
+4. **Prefix caching works. How much it helps depends on the model and on the load.** The endpoint
+   reported cache hits on about 2.4k prompt tokens for all three models. Gemma's TTFT dropped
+   1.7–1.8× in both runs. Qwen gained under 1.2×, and for the 235B model in run 2, queueing noise
+   was bigger than the saving. The practical rule still holds: put the static part of the prompt
+   first.
+5. **Routing doesn't pay on these tasks.** It saves 16% against always-large, but always-small is
+   cheaper still and just as accurate. The eval set is too easy to separate the models, so the
+   next step is harder items, not a smarter router.
+6. **One run is not a result on a shared endpoint.** Run 1 showed the 235B model decoding faster
+   than the 30B (8.8 ms vs 15.5 ms per token) and Gemma at 16 tok/s at concurrency 1. Neither
+   result came back in run 2, which points to a quiet server and a cold start, not to the models.
+   Everything above is stated only where both runs agree, or it is marked as run 2.
+
 ## What gets measured, and why
 
 **Latency is two different numbers.** A streaming response has a *prefill* phase (the model reads

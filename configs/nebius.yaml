@@ -2,22 +2,29 @@
 #   export NEBIUS_API_KEY=...
 #   tokenbench models          # check which model ids are currently served
 #
-# Prices are USD per 1M tokens. Copy them from the Token Factory pricing page before trusting
-# any cost numbers — they change. Leave them null and cost columns are simply skipped.
+# Prices are USD per 1M tokens (input / output), taken from the pricing page in Nov 2026 —
+# they change, so re-check before trusting cost numbers. Set them to null to skip cost columns.
+#
+# The lineup compares two Qwen3 mixture-of-experts sizes from the same family (a clean
+# small-vs-large routing pair) with a dense model of similar total size to the small one.
 provider:
   base_url: https://api.tokenfactory.nebius.com/v1/
   api_key_env: NEBIUS_API_KEY
 
 models:
-  - id: meta-llama/Meta-Llama-3.1-8B-Instruct
-    label: llama-3.1-8b
-    price_in: null
-    price_out: null
-  - id: meta-llama/Llama-3.3-70B-Instruct
-    label: llama-3.3-70b
-    price_in: null
-    price_out: null
+  - id: Qwen/Qwen3-30B-A3B-Instruct-2507      # MoE, 30B total / 3B active
+    label: qwen3-30b-a3b
+    price_in: 0.10
+    price_out: 0.30
+  - id: Qwen/Qwen3-235B-A22B-Instruct-2507    # MoE, 235B total / 22B active
+    label: qwen3-235b-a22b
+    price_in: 0.20
+    price_out: 0.60
+  - id: google/gemma-3-27b-it                 # dense, 27B
+    label: gemma-3-27b
+    price_in: 0.10
+    price_out: 0.30
 
 router:
-  small: llama-3.1-8b
-  large: llama-3.3-70b
+  small: qwen3-30b-a3b
+  large: qwen3-235b-a22b
